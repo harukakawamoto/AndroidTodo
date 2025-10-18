@@ -10,14 +10,15 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.todolist.ui.theme.TodoListTheme
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
-fun TodoScreen(modifier: Modifier){
-    val vm = TodoViewModel()
-    val uiState by vm.uiState.collectAsStateWithLifecycle()
+fun TodoScreen(modifier: Modifier,
+               viewModel: TodoViewModel = viewModel()){
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     Column{
         uiState.map{
-            TodoItem(it, vm::stateUpdate)
+            TodoItem(it, viewModel::stateUpdate)
         }
     }
 }

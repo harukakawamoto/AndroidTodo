@@ -14,20 +14,20 @@ class TodoViewModel: ViewModel() {
     private val TodoModel = Model()
     private val _UiState = MutableStateFlow(FakeData)
     val uiState: StateFlow<List<Todo>> = _UiState.asStateFlow()
-//    init {
-//        viewModelScope.launch {
-//            _UiState.value = TodoModel.loadTodoData()
-//        }
-//    }
+    init {
+        viewModelScope.launch {
+            _UiState.value = TodoModel.loadTodoData()
+        }
+    }
 
 
-    fun stateUpdate(id: Int){
+    fun stateUpdate(id: Int) {
         // MutableStateFlowのupdateでスレッドセーフに実行できる
         _UiState.update { currentState ->
-            currentState.map{ todo ->
-                if(todo.id == id){
+            currentState.map { todo ->
+                if (todo.id == id) {
                     todo.copy(completed = !todo.completed)
-                }else{
+                } else {
                     todo
                 }
             }
